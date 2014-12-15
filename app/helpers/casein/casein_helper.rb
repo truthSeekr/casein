@@ -44,8 +44,9 @@ module Casein
   	end
 	
   	def casein_get_access_level_array
-  	  [["Administrator", $CASEIN_USER_ACCESS_LEVEL_ADMIN], ["User", $CASEIN_USER_ACCESS_LEVEL_USER]]
-  	end
+  	  # [["Administrator", $CASEIN_USER_ACCESS_LEVEL_ADMIN], ["User", $CASEIN_USER_ACCESS_LEVEL_USER]]
+  	  [["Administrator", "admin"], ["Autor", "author"], ["Moderator", "moderator"]]
+    end
 
     def casein_pagination_details objs
       " <small class='pagination-details'>/ page #{objs.current_page} of #{objs.total_pages}</small>".html_safe if objs.current_page && objs.total_pages > 1

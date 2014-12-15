@@ -22,7 +22,10 @@ module Casein
       generate_random_password if params[:generate_random_password]
 
       @casein_admin_user = Casein::AdminUser.new casein_admin_user_params
-    
+      
+      role = Role.where(name: params[:role])
+      @casein_admin_user.roles << role if role.present?
+
       if @casein_admin_user.save
         flash[:notice] = "An email has been sent to " + @casein_admin_user.name + " with the new account details"
         redirect_to casein_admin_users_path
@@ -117,7 +120,7 @@ module Casein
       end
 
       def casein_admin_user_params
-        params.require(:casein_admin_user).permit(:login, :name, :email, :time_zone, :access_level, :password, :password_confirmation)
+        params.require(:casein_admin_user).permit(:login, :name, :email, :time_zone, :role, :password, :password_confirmation)
       end
  
   end
