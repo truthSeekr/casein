@@ -33,10 +33,10 @@ module Casein
   	end
 	
   	def casein_get_access_level_text user
-      byebug
+      
       full_roles = ""
       role_array = user.roles.map{ |user| user.name }
-      role_array.count.each_with_index do |role_name, index|
+      role_array.each_with_index do |role_name, index|
         full_roles = full_roles "</br>" if index > 0
         full_roles = full_roles + role_name
       end
