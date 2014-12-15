@@ -38,7 +38,7 @@ module Casein
       role_array = user.roles.map{ |user| user.name }
       role_array.each_with_index do |role_name, index|
         full_roles = full_roles "</br>" if index > 0
-        full_roles = full_roles + role_name
+        full_roles = full_roles + role_name.humanize
       end
 
       return full_roles
@@ -180,6 +180,7 @@ module Casein
     end
 	
   	def casein_select form, obj, attribute, option_tags, options = {}
+      byebug
   		casein_form_tag_wrapper(form.select(attribute, option_tags, strip_casein_options(options), merged_class_hash(options, 'form-control')), form, obj, attribute, options).html_safe
   	end
   	
