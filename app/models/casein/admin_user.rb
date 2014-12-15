@@ -5,7 +5,8 @@ $CASEIN_USER_ACCESS_LEVEL_USER = 10
 
 module Casein
   class AdminUser < ActiveRecord::Base
-    include TheRole::User
+
+    has_and_belongs_to_many :roles
     
 	  def self.table_name
       self.to_s.gsub("::", "_").tableize
