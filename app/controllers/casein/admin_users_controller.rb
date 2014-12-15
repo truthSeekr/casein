@@ -44,8 +44,17 @@ module Casein
     def update
       @casein_admin_user = Casein::AdminUser.find params[:id]
       @casein_page_title = @casein_admin_user.name + " > Update user"
+      @casein_admin_user = @casein_admin_user.assign_attributes casein_admin_user_params
+      
+      role_name = params[:casein_admin_user][:access_level]
+      role = Role.where(name: role_name) 
 
-      if @casein_admin_user.update_attributes casein_admin_user_params
+      if role.present?
+        @casein_admin_user.roles.delete
+        @casein_admin_user.roles << role 
+      end
+      byebug
+      if @casein_admin_user.save
         flash[:notice] = @casein_admin_user.name + " has been updated"
       else
         flash.now[:warning] = "There were problems when trying to update this user"
