@@ -42,10 +42,11 @@ module Casein
     end
  
     def update
-      byebug
+      
       @casein_admin_user = Casein::AdminUser.find params[:id]
       @casein_page_title = @casein_admin_user.name + " > Update user"
-      @casein_admin_user = @casein_admin_user.assign_attributes casein_admin_user_params
+      
+      @casein_admin_user.assign_attributes casein_admin_user_params
       
       role_name = params[:casein_admin_user][:access_level]
       role = Role.where(name: role_name) 
