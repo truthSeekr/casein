@@ -26,7 +26,8 @@ module Casein
     validates_presence_of :time_zone
 	  
   	def self.has_more_than_one_admin
-      Casein::AdminUser.where(:access_level => $CASEIN_USER_ACCESS_LEVEL_ADMIN).count > 1
+      # Casein::AdminUser.where(:access_level => $CASEIN_USER_ACCESS_LEVEL_ADMIN).count > 1
+      Role.where(name:"admin").count > 1
     end
 	
   	def send_create_notification

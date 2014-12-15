@@ -14,7 +14,7 @@
 		<tr>
 			<td><%= casein_table_cell_link user.login, casein_admin_user_path(user) %></td>
 			<td><%= casein_table_cell_link user.name, casein_admin_user_path(user) %></td>
-			<td><%= casein_table_cell_link casein_get_access_level_text(user.access_level), casein_admin_user_path(user) %></td>
+			<td><%= casein_table_cell_link casein_get_access_level_text(user), casein_admin_user_path(user) %></td>
 			<td class="delete">
 				<% if user.is_admin? == false || Casein::AdminUser.has_more_than_one_admin %>
 					<% confirm_message = "Are you sure you want to delete #{user.name}?" %>
