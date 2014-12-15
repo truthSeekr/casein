@@ -7,7 +7,7 @@ module Casein
   class AdminUser < ActiveRecord::Base
 
     has_and_belongs_to_many :roles
-    
+
 	  def self.table_name
       self.to_s.gsub("::", "_").tableize
     end
@@ -50,7 +50,8 @@ module Casein
     end
 	
   	def is_admin?
-  	  access_level == $CASEIN_USER_ACCESS_LEVEL_ADMIN
+  	  role?(:admin)
+      # access_level == $CASEIN_USER_ACCESS_LEVEL_ADMIN
   	end
   
   end

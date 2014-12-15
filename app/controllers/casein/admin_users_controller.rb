@@ -22,8 +22,9 @@ module Casein
       generate_random_password if params[:generate_random_password]
 
       @casein_admin_user = Casein::AdminUser.new casein_admin_user_params
-      byebug
-      role = Role.where(name: params[:role])
+      
+      role_name = params[:casein_admin_user][:access_level]
+      role = Role.where(name: role_name)
       @casein_admin_user.roles << role if role.present?
 
       if @casein_admin_user.save
