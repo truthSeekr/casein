@@ -23,7 +23,7 @@
 	<% if @session_user.is_admin? && (@casein_admin_user.is_admin? == false || Casein::AdminUser.has_more_than_one_admin) %>
 		<div class="row">
   			<div class="col-lg-6">
-				<%= casein_select f, f.object, :access_level, casein_get_access_level_array, {:casein_label => "Role"} %>
+				<%= casein_select f, f.object, :access_level, casein_get_access_level_array, {:casein_label => "Role", :selected => @role} %>
 			</div>
 			<div class="col-lg-6">
 			</div>

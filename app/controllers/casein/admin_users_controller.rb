@@ -15,6 +15,7 @@ module Casein
       @casein_page_title = "Add a new user"
     	@casein_admin_user = Casein::AdminUser.new
     	@casein_admin_user.time_zone = Rails.configuration.time_zone
+
     end
   
     def create
@@ -39,6 +40,7 @@ module Casein
     def show
     	@casein_admin_user = Casein::AdminUser.find params[:id]
     	@casein_page_title = @casein_admin_user.name + " > View user"
+      @role = @casein_admin_user.roles.first.name
     end
  
     def update
