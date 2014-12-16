@@ -70,5 +70,10 @@ module Casein
       "#{(params[:c] || default.to_s).gsub(/[\s;'\"]/,'')} #{'ASC' if params[:d] == 'up'} #{'DESC' if params[:d] == 'down'}"
     end
 
+    def sort_direction
+      return "ASC" if params[:d] == 'up'
+      "DESC"
+    end
+
   end
 end
