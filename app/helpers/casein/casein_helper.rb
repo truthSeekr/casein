@@ -3,11 +3,10 @@ module Casein
 	
     def casein_get_footer_string include_version = false
       if include_version
-        "Running on alpha"
-        # "Running on #{link_to 'Casein', 'http://www.github.com/russellquinn/casein'} #{casein_get_full_version_string}, an open-source project.".html_safe
+        "Running on alpha".html_safe
       else
-        "Running on alpha"
-        # "Running on #{link_to 'Casein', 'http://www.github.com/russellquinn/casein'}, an open-source project.".html_safe
+        "Running on alpha".html_safe
+        
       end
     end
 
@@ -18,11 +17,13 @@ module Casein
   	def casein_get_full_version_string
   	  version_info = casein_get_version_info
   	  "v#{version_info['major']}.#{version_info['minor']}.#{version_info['patch']}.#{version_info['build']}"
-  	end
+  	  ""
+    end
 	
   	def casein_get_short_version_string
   	  version_info = casein_get_version_info
   	  "v#{version_info['major']}"
+      ""
   	end
 	
   	def casein_generate_page_title
