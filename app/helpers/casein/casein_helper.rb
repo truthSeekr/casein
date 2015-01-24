@@ -110,7 +110,7 @@ module Casein
         icon_to_show_html = "<div class='table-header-icon glyphicon glyphicon-#{icon_to_show}'></div>".html_safe
       end
       sort_dir = params[:d] == 'down' ? 'up' : 'down'
-      link_to_unless(condition, title, request.parameters.merge({:c => column, :d => sort_dir})) + icon_to_show_html
+      link_to_unless(condition, title, request.parameters.merge({:c => column, :d => sort_dir}))
     end
 
     def casein_yes_no_label value
