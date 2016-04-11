@@ -37,7 +37,7 @@
               <li><%= link_to 'Profile', casein_admin_user_path(@session_user) %></li>
 
               <% if @session_user.is_admin? %>
-                <li><%= link_to 'Users', casein_admin_users_path %></li>
+                <!-- <li><%= link_to 'Users', casein_admin_users_path %></li> -->
               <% end %>
 
               <%= render :partial => '/casein/layouts/top_navigation' %>

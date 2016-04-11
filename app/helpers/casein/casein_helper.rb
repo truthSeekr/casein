@@ -57,7 +57,8 @@ module Casein
 	
   	def casein_get_access_level_array
   	  # [["Administrator", $CASEIN_USER_ACCESS_LEVEL_ADMIN], ["User", $CASEIN_USER_ACCESS_LEVEL_USER]]
-  	  [["Administrator", "admin"], ["Autor", "author"], ["Moderator", "moderator"]]
+      # [["Administrator", "admin"], ["Autor", "author"], ["Moderator", "moderator"]]
+      [["Administrator", "admin"]]
     end
 
     def casein_pagination_details objs
