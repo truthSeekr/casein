@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # configure Rspec here as necessary
 
 ENV['RAILS_ENV'] ||= 'test'

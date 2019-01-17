@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Casein
   class PasswordResetsController < Casein::CaseinController
     skip_before_action :authorise

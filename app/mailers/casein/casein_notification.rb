@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Casein
   class CaseinNotification < ActionMailer::Base
     self.prepend_view_path File.join(File.dirname(__FILE__), '..', 'views', 'casein')

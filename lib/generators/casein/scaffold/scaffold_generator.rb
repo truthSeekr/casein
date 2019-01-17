@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Casein
   class ScaffoldGenerator < Rails::Generators::NamedBase
     include Casein::CaseinHelper

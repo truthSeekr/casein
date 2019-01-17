@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include Casein::ConfigHelper
 
 $CASEIN_USER_ACCESS_LEVEL_ADMIN = 0

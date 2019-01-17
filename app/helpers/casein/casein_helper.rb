@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Casein
   module CaseinHelper
     def casein_get_footer_string(include_version = false)
