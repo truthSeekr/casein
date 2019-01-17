@@ -4,10 +4,9 @@ require 'securerandom'
 
 module Casein
   class AdminUsersController < Casein::CaseinController
+    before_action :needs_admin, except: %i[show destroy update update_password]
+    before_action :needs_admin_or_current_user, only: %i[show destroy update update_password]
 
-    before_action :needs_admin, except: [:show, :destroy, :update, :update_password]
-    before_action :needs_admin_or_current_user, only: [:show, :destroy, :update, :update_password]
- 
     def index
       @casein_page_title = 'Users'
       @users = Casein::AdminUser.order(sort_order(:login)).paginate page: params[:page]
@@ -84,13 +83,13 @@ module Casein
         flash[:warning] = 'New password cannot be blank'
       else
         generate_random_password if params[:generate_random_password]
-        @casein_admin_user.notify_of_new_password = true unless (@casein_admin_user.id == @session_user.id && params[:generate_random_password].blank?)
+        @casein_admin_user.notify_of_new_password = true unless @casein_admin_user.id == @session_user.id && params[:generate_random_password].blank?
 
         if @casein_admin_user.update_attributes casein_admin_user_params
-          unless @casein_admin_user.notify_of_new_password
-            flash[:notice] = "Your password has been reset"
-          else
+          if @casein_admin_user.notify_of_new_password
             flash[:notice] = "Password has been reset and #{@casein_admin_user.name} has been notified by email"
+          else
+            flash[:notice] = 'Your password has been reset'
           end
         else
           flash[:warning] = "There were problems when trying to reset this user's password"

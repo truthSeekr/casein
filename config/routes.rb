@@ -10,8 +10,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :admin_user_session, only: [:new, :create, :destroy]
-    resource :password_reset, only: [:create, :edit, :update]
+    resource :admin_user_session, only: %i[new create destroy]
+    resource :password_reset, only: %i[create edit update]
 
     match '/blank' => 'casein#blank', via: :get
     root to: 'casein#index'
