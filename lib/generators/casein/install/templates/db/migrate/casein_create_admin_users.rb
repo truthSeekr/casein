@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CaseinCreateAdminUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :casein_admin_users do |t|

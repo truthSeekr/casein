@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if defined?(Rails) && Rails::VERSION::MAJOR >= 5
   require 'casein/engine'
   require 'casein/version'

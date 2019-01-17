@@ -1,17 +1,17 @@
+# frozen_string_literal: true
+
 module Casein
   class PasswordResetsController < Casein::CaseinController
     skip_before_action :authorise
-    before_action :load_user_using_perishable_token, only: [:edit, :update]
+    before_action :load_user_using_perishable_token, only: %i[edit update]
 
     layout 'casein_auth'
 
     def create
       users = Casein::AdminUser.where(email: params[:recover_email]).all
 
-      if users.length > 0
-        users.each do |user|
-          user.send_password_reset_instructions
-        end
+      if !users.empty?
+        users.each(&:send_password_reset_instructions)
 
         if users.length > 1
           flash[:notice] = "Multiple accounts were found. Emails have been sent to #{params[:recover_email]} with instructions on how to reset your passwords"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Casein
   module ConfigHelper
     # Name of website or client — used throughout Casein.

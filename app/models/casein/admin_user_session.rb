@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Casein
   class AdminUserSession < ::Authlogic::Session::Base
     include ActiveModel::Conversion

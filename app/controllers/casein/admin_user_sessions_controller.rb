@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Casein
   class AdminUserSessionsController < Casein::CaseinController
-    skip_before_action :authorise, only: [:new, :create]
+    skip_before_action :authorise, only: %i[new create]
     before_action :requires_no_session_user, except: [:destroy]
 
     layout 'casein_auth'
@@ -26,9 +28,7 @@ module Casein
     private
 
     def requires_no_session_user
-      if current_user
-        redirect_to controller: :casein, action: :index
-      end
+      redirect_to controller: :casein, action: :index if current_user
     end
 
     def casein_admin_user_session_params

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Casein
   class ScaffoldGenerator < Rails::Generators::NamedBase
     include Casein::CaseinHelper
     include Rails::Generators::Migration
-    source_root File.expand_path('../templates', __FILE__)
+    source_root File.expand_path('templates', __dir__)
 
     argument :attributes, type: :array, required: true, desc: 'attribute list required'
 
@@ -12,7 +14,7 @@ module Casein
       if ActiveRecord::Base.timestamped_migrations
         Time.now.utc.strftime('%Y%m%d%H%M%S')
       else
-        "%.3d" % (current_migration_number(dirname) + 1)
+        format('%.3d', (current_migration_number(dirname) + 1))
       end
     end
 
@@ -46,7 +48,7 @@ module Casein
       file_to_update = Rails.root + 'config/routes.rb'
       line_to_add = 'namespace :casein do'
       insert_sentinel = 'Application.routes.draw do'
-      if File.read(file_to_update).scan(/(#{Regexp.escape("#{line_to_add}")})/mi).blank?
+      if File.read(file_to_update).scan(/(#{Regexp.escape(line_to_add.to_s)})/mi).blank?
         gsub_add_once plural_name, file_to_update, "\n#Casein routes\n" + line_to_add + "\nend\n", insert_sentinel
       end
     end
@@ -55,15 +57,15 @@ module Casein
       puts "   casein     adding #{plural_name} resources to routes.rb"
       file_to_update = Rails.root + 'config/routes.rb'
 
-      if @no_index && @read_only
-        line_to_add = "resources :#{plural_name}, only: [:show]"
-      elsif @no_index
-        line_to_add = "resources :#{plural_name}, except: [:index]"
-      elsif @read_only
-        line_to_add = "resources :#{plural_name}, only: [:index, :show]"
-      else
-        line_to_add = "resources :#{plural_name}"
-      end
+      line_to_add = if @no_index && @read_only
+                      "resources :#{plural_name}, only: [:show]"
+                    elsif @no_index
+                      "resources :#{plural_name}, except: [:index]"
+                    elsif @read_only
+                      "resources :#{plural_name}, only: [:index, :show]"
+                    else
+                      "resources :#{plural_name}"
+                    end
 
       insert_sentinel = 'namespace :casein do'
       gsub_add_once plural_name, file_to_update, '    ' + line_to_add, insert_sentinel
@@ -79,7 +81,7 @@ module Casein
 
     def gsub_add_once(_m, file, line, sentinel)
       unless options[:pretend]
-        gsub_file file, /(#{Regexp.escape("\n#{line}")})/mi do |match|
+        gsub_file file, /(#{Regexp.escape("\n#{line}")})/mi do |_match|
           ''
         end
         gsub_file file, /(#{Regexp.escape(sentinel)})/mi do |match|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'authlogic'
 
 module Casein
@@ -14,22 +16,23 @@ module Casein
     before_action :authorise
     before_action :set_time_zone
 
-    ActionView::Base.field_error_proc = proc { |input, instance| "#{input}".html_safe }
+    ActionView::Base.field_error_proc = proc { |input, _instance| input.to_s.html_safe }
 
-    def index		
-  		redirect_to casein_config_dashboard_url
+    def index
+      redirect_to casein_config_dashboard_url
     end
 
-  	def blank
-  		@casein_page_title = "Welcome"
-  	end
+    def blank
+      @casein_page_title = 'Welcome'
+    end
+
     private
 
     def authorise
       unless current_user
         session[:return_to] = request.fullpath
         redirect_to new_casein_admin_user_session_url
-        return false
+        false
       end
     end
 
@@ -45,7 +48,8 @@ module Casein
 
     def current_user
       return @session_user if defined?(@session_user)
-      @session_user = current_admin_user_session && current_admin_user_session.admin_user
+
+      @session_user = current_admin_user_session&.admin_user
     end
 
     def needs_admin
@@ -66,7 +70,7 @@ module Casein
     end
 
     def sort_order(default)
-      column = (params[:c] || default.to_s).gsub(/[\s;'\"]/,'')
+      column = (params[:c] || default.to_s).gsub(/[\s;'\"]/, '')
       direction = params[:d] == 'down' ? 'DESC' : 'ASC'
       { column => direction }
     end
