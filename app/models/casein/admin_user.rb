@@ -29,6 +29,7 @@ module Casein
 
     # These default validations come from authlogic:
     # https://github.com/binarylogic/authlogic/blob/master/doc/use_normal_rails_validation.md
+    # Note that Casein uses a case-sensitive uniqueness validation for :login, so we remove that config
     validates :login,
               format: {
                 with: /\A[a-zA-Z0-9_][a-zA-Z0-9\.+\-_@ ]+\z/,
@@ -39,11 +40,7 @@ module Casein
                   )
                 }
               },
-              length: { within: 3..100 },
-              uniqueness: {
-                case_sensitive: false,
-                if: :will_save_change_to_login?
-              }
+              length: { within: 3..100 }
 
     validates :password,
               confirmation: { if: :require_password? },
